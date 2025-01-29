@@ -1,7 +1,7 @@
 import streamlit as st
 
 #Cria a pagina de login
-st.set_page_config(page_title="MM Montagem", page_icon="img.favicon.png")
+st.set_page_config(page_title="MM Montagem", page_icon="img/favicon.png")
 
 # Título e img
 st.markdown("<h1 style='text-align: center; color: DarkGray;'>Bem-vindo(a) à agenda MMG</h1>", unsafe_allow_html=True)
