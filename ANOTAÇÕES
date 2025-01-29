@@ -1,19 +1,5 @@
-pip install -r requirements.txt
 
 streamlit run app.py
 
-/MMG
-├── app.py
-│
-├── Controllers
-│   └── ClienteController.py
-│   └── LoginController.py
-│
-|── imagens
-│
-├── Pages
-│   │── 0_login.py
-│   │── 1_Home.py
-│   └── 2_Cadastrocliente.py
-│
-│── clientes.db
+#armazena no cache o formato de telefone para ser usado
+@st.cache_data

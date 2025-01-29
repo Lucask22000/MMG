@@ -3,18 +3,12 @@ import streamlit as st
 #Cria a pagina de login
 st.set_page_config(page_title="MM Montagem", page_icon="img.favicon.png")
 
-# Função de centralização de conteúdo
-def centralizar_conteudo_streamlit(caminho_img, largura_img=320):
-    col1, col2, col3 = st.columns([3, 3, 3])
-    with col2:
-        st.image(caminho_img, width=largura_img)
-
 # Título e img
-st.title("Bem-vindo(a) à agenda MMG")
-centralizar_conteudo_streamlit("img/mmg.jpg", largura_img=320)
+st.markdown("<h1 style='text-align: center; color: DarkGray;'>Bem-vindo(a) à agenda MMG</h1>", unsafe_allow_html=True)
+
+st.image("img\logo.png", width=700)
 
 # Campo de usuario
-
 def formatar_telefone(numero):
     numero = ''.join(filter(str.isdigit, numero))  # Remove caracteres não numéricos
     if len(numero) == 11:
@@ -26,6 +20,7 @@ def formatar_telefone(numero):
 telefone = st.text_input("Informe um número válido com DDD", placeholder="(99) 99999-9999")
 
 telefone_formatado = formatar_telefone(telefone)
+
 if telefone.strip():
     st.write(f"📞 Você digitou: {telefone_formatado}")
 
