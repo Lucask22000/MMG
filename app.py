@@ -1,66 +1,21 @@
 import streamlit as st
-st.write("teste")
 
 
-# Configuração da página
-st.set_page_config(page_title=" vamos ver Agenda MMG")
-
-# Inicializa o estado da sessão para o telefone
-if "telefone" not in st.session_state:
-    st.session_state.telefone = ""
-
-# Função para atualizar o estado do telefone
-def atualizar_telefone():
-    telefone = st.session_state.telefone
-    st.session_state.telefone = formatar_telefone(telefone)
-
-# Criando uma coluna centralizada
-def centralizar_conteudo_streamlit(titulo, caminho_imagem, largura_imagem=320):
-    col1, col2, col3 = st.columns([1, 4, 1])  # Cria colunas para centralizar
-    with col2:
-        st.subheader(titulo)  # Exibe o título
-        st.image(caminho_imagem, width=largura_imagem)  # Exibe a imagem
-
-# Exemplo de uso
-centralizar_conteudo_streamlit("Bem-vindo(a) à agenda MMG", "imagens/mmg.jpg", largura_imagem=320)
-
-
-st.write("""#### Agende agora mesmo uma data para que possamos entrar em contato com você""")
-
-# Campo de entrada de telefone com formatação dinâmica
-st.text_input(
-    "Digite seu número de telefone",
-    placeholder="(67) 99109-2895",
-    key="telefone",
-    on_change=atualizar_telefone
+# Configuração da página com o favicon
+st.set_page_config(
+    page_title="Agenda MMG",
+    page_icon="imagens/favicon.png",  # Caminho do arquivo do favicon
+    layout="centered"
 )
 
-# Função para formatar o número no padrão nacional
-def formatar_telefone(numero):
-    # Remove caracteres não numéricos
-    numero = ''.join(filter(str.isdigit, numero))
-    
-    # Aplica o formato (XX) XXXXX-XXXX para 11 dígitos
-    if len(numero) == 11:
-        return f"({numero[:2]}) {numero[2:7]}-{numero[7:]}"
-    elif len(numero) == 10:  # Para números com 10 dígitos (sem o 9 extra)
-        return f"({numero[:2]}) {numero[2:6]}-{numero[6:]}"
-    return numero  # Retorna como está se não atender os critérios
+# Verifica se o estado da página está definido, caso contrário, inicializa com a página de login
+if "pagina" not in st.session_state:
+    st.session_state.pagina = "Login"
 
-# Campo de senha (ocultado)
-senha = st.text_input("Digite sua senha", type="password", placeholder="********")
-
-# Botão de login
-if st.button("Entrar"):
-    telefone = st.session_state.telefone
-    if len(telefone) in [14, 15]:  # Verifica se está no formato correto
-        st.success(f"Login realizado com o número {telefone}!")
-    else:
-        st.error("Por favor, insira um número válido no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX.")
-# Exibe a senha, mas você pode fazer validações ou outras ações com ela
-if senha:
-    st.write("Senha inserida.")
-
-# Link para cadastro
-st.write("Ainda não tem uma conta? [Cadastre-se aqui](#) para começar a agendar seus serviços!")
-
+# Usando a variável st.session_state.pagina para controlar a navegação
+if st.session_state.pagina == "Login":
+    import Pages.Login  # Importando a página de login
+elif st.session_state.pagina == "Cadastro":
+    import Pages.Cadastro  # Importando a página de cadastro
+elif st.session_state.pagina == "Home":
+    import Pages.Home  # Importando a página home
