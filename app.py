@@ -6,7 +6,7 @@ st.set_page_config(page_title="MM Montagem", page_icon="img.favicon.png")
 # Título e img
 st.markdown("<h1 style='text-align: center; color: DarkGray;'>Bem-vindo(a) à agenda MMG</h1>", unsafe_allow_html=True)
 
-st.image("img\logo.png", width=700)
+st.image("img\imglogin.png", width=700)
 
 # Campo de usuario
 def formatar_telefone(numero):
