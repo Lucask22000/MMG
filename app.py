@@ -1,14 +1,27 @@
 import streamlit as st
 
-#Cria a pagina de login
+# Configura a página
 st.set_page_config(page_title="MM Montagem", page_icon="img/favicon.png")
 
-# Título e img
-st.markdown("<h1 style='text-align: center; color: DarkGray;'>Bem-vindo(a) à agenda MMG</h1>", unsafe_allow_html=True)
+# Oculta completamente a barra lateral e o botão de expandir
+st.markdown("""
+    <style>
+        [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
+# Título e imagem
+st.markdown("<h1 style='text-align: center; color: DarkGray;'>Bem-vindo(a) à agenda MMG</h1>", unsafe_allow_html=True)
 st.image("img/imglogin.png", width=700)
 
-# Campo de usuario
+# Verifica se há uma mensagem de sucesso armazenada
+if "mensagem_sucesso" in st.session_state:
+    st.success(st.session_state["mensagem_sucesso"])
+    del st.session_state["mensagem_sucesso"]  # Remove a mensagem após exibição
+
+# Função para formatar telefone
 def formatar_telefone(numero):
     numero = ''.join(filter(str.isdigit, numero))  # Remove caracteres não numéricos
     if len(numero) == 11:
@@ -17,8 +30,8 @@ def formatar_telefone(numero):
         return f"({numero[:2]}) {numero[2:6]}-{numero[6:]}"
     return numero  # Retorna como está se não atender os critérios
 
+# Campo de telefone
 telefone = st.text_input("Informe um número válido com DDD", placeholder="(99) 99999-9999")
-
 telefone_formatado = formatar_telefone(telefone)
 
 if telefone.strip():
@@ -31,13 +44,10 @@ senha = st.text_input("Digite sua senha", type="password", placeholder="********
 if st.button("Entrar"):
     cliente = (telefone_formatado, senha)
     if cliente:
-        st.success(f"Login realizado com sucesso para {cliente[0]}!")
+        st.switch_page("pages\home.py")
     else:
         st.error("Número de telefone ou senha inválidos.")
 
-# Botão de cadastro
-if st.button("Não tem cadastro? Clique aqui para cadastrar"):
-    st.session_state.pagina = "Cadastro"
-
-
-
+# Botão para ir para a página de cadastro
+if st.button("Não tem uma conta? Cadastre-se aqui!"):
+    st.switch_page("pages\Cadastro.py")
