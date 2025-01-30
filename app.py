@@ -1,4 +1,5 @@
 import streamlit as st
+from Controller import verificar_login
 
 # Configura a página
 st.set_page_config(page_title="MM Montagem", page_icon="img/favicon.png")
@@ -41,10 +42,19 @@ if telefone.strip():
 senha = st.text_input("Digite sua senha", type="password", placeholder="********", key="senha_login")
 
 # Botão de login
+# Botão de login
 if st.button("Entrar"):
-    cliente = (telefone_formatado, senha)
-    if cliente:
-        st.switch_page("pages/home.py")
+    usuario = verificar_login(telefone, senha)
+
+    if usuario:  # Se encontrou um usuário no banco
+        # Salvando os dados do usuário na sessão
+        st.session_state["usuario"] = {
+            "id": usuario[0],
+            "nome": usuario[1],
+            "sobrenome": usuario[2],
+            "telefone": usuario[3]
+        }
+        st.switch_page("pages/home.py")  # Redireciona para a Home
     else:
         st.error("Número de telefone ou senha inválidos.")
 
