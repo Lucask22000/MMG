@@ -44,10 +44,10 @@ senha = st.text_input("Digite sua senha", type="password", placeholder="********
 if st.button("Entrar"):
     cliente = (telefone_formatado, senha)
     if cliente:
-        st.switch_page("pages\home.py")
+        st.switch_page("pages/home.py")
     else:
         st.error("Número de telefone ou senha inválidos.")
 
 # Botão para ir para a página de cadastro
 if st.button("Não tem uma conta? Cadastre-se aqui!"):
-    st.switch_page("pages\Cadastro.py")
+    st.switch_page("pages/Cadastro.py")
