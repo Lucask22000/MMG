@@ -1,5 +1,0 @@
-
-streamlit run app.py
-
-#armazena no cache o formato de telefone para ser usado
-@st.cache_data
